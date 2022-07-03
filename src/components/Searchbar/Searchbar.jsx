@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import s from './Searchbar.module.css';
 
-const initialState = { query: '' };
+const INITIALSTATE = { query: '' };
 
 class Searchbar extends Component {
   state = {
@@ -16,7 +16,7 @@ class Searchbar extends Component {
     e.preventDefault();
 
     this.props.onSubmit(this.state);
-    this.setState({ initialState });
+    this.setState(INITIALSTATE);
 
     e.target.reset();
   };
