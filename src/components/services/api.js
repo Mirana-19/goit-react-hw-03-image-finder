@@ -16,6 +16,7 @@ async function fetchImages(searchQuery, page) {
       q: searchQuery,
     },
   });
+
   return response.data.hits;
 }
 

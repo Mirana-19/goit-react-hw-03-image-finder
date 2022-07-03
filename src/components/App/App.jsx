@@ -6,26 +6,36 @@ import Button from 'components/Button/Button';
 
 export class App extends Component {
   state = {
-    searchQuery: null,
+    searchQuery: '',
     images: [],
     page: 1,
   };
 
   handleSearch = ({ query }) => {
-    this.setState({ searchQuery: query.toLowerCase().trim() });
+    this.setState({
+      searchQuery: query.toLowerCase().trim(),
+      page: 1,
+      images: [],
+    });
+  };
+
+  loadMoreImages = () => {
+    this.setState(prevState => ({
+      page: prevState.page + 1,
+    }));
   };
 
   async componentDidUpdate(prevProps, prevState) {
     const { page, searchQuery } = this.state;
 
     console.log(prevState.searchQuery, searchQuery);
+    console.log(prevState.page, page);
 
     if (prevState.page !== page || prevState.query !== searchQuery) {
-      const images = await api(searchQuery, page).then(response =>
-        this.setState(prevState => ({
-          images: [...prevState.images, ...response],
-        }))
-      );
+      const response = await api(searchQuery, page);
+      this.setState(prevState => ({
+        images: [...prevState.images, ...response],
+      }));
     }
   }
 
