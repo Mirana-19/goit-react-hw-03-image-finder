@@ -1,5 +1,11 @@
+import s from './Button.module.css';
+
 function Button({ onClick }) {
-  return <button onClick={onClick}>Load more</button>;
+  return (
+    <button className={s.button} onClick={onClick}>
+      Load more
+    </button>
+  );
 }
 
 export default Button;

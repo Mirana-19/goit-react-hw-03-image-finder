@@ -20,19 +20,18 @@ export class App extends Component {
   async componentDidUpdate(_, prevState) {
     const { page, searchQuery, images } = this.state;
 
-    // if (page === 1 && prevState.searchQuery === this.state.searchQuery) {
-    //   return toast.info('Try "load more" button');
-    // }
-
     if (prevState.page !== page || prevState.searchQuery !== searchQuery) {
       try {
         if (searchQuery === '') {
           return toast.info('Please type your search query');
         }
 
+        console.log(prevState, this.state);
+
         this.setState({ status: 'pending' });
+
         const response = await api(searchQuery, page);
-        console.log(response);
+
         if (response.length === 0) {
           this.setState({ status: 'idle' });
 
@@ -54,8 +53,14 @@ export class App extends Component {
   }
 
   handleSearch = ({ query }) => {
+    const normalizedQuery = query.toLowerCase().trim();
+
+    if (normalizedQuery === this.state.searchQuery) {
+      return toast.error('Try "load more" button');
+    }
+
     this.setState({
-      searchQuery: query.toLowerCase().trim(),
+      searchQuery: normalizedQuery,
       page: 1,
       images: [],
     });
@@ -73,11 +78,13 @@ export class App extends Component {
     return (
       <div>
         <Searchbar onSubmit={this.handleSearch} />
-        <ImageGallery images={images} />
-        {status === 'success' && <Button onClick={this.loadMoreImages} />}
-        {status === 'error' && <h2>Something went wrong, try again</h2>}
-        <ToastContainer />
-        {status === 'pending' && <Loader />}
+        <main>
+          <ImageGallery images={images} />
+          {status === 'success' && <Button onClick={this.loadMoreImages} />}
+          {status === 'error' && <h2>Something went wrong, try again</h2>}
+          {status === 'pending' && <Loader />}
+          <ToastContainer />
+        </main>
       </div>
     );
   }

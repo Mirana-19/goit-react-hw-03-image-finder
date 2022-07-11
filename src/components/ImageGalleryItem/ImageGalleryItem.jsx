@@ -1,6 +1,8 @@
 import Modal from 'components/Modal/Modal';
 import { Component } from 'react';
 
+import s from './ImageGalleryItem.module.css';
+
 class ImageGalleryItem extends Component {
   state = {
     isModalOpen: false,
@@ -20,8 +22,8 @@ class ImageGalleryItem extends Component {
     const { isModalOpen } = this.state;
 
     return (
-      <li onClick={this.toggleModal}>
-        <img src={webformatURL} alt={tag} />
+      <li className={s.item} onClick={this.toggleModal}>
+        <img src={webformatURL} alt={tag} width="300px" height="150px" />
         {isModalOpen && <Modal imgUrl={largeImageURL} tag={tag} />}
       </li>
     );

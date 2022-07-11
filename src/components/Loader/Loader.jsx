@@ -1,7 +1,13 @@
-import { Oval } from 'react-loader-spinner';
+import { BallTriangle } from 'react-loader-spinner';
+import s from './Loader.module.css';
 
 function Loader() {
-  return <Oval />;
+  return (
+    <div className={s.container}>
+      {' '}
+      <BallTriangle color="#4267B2" />
+    </div>
+  );
 }
 
 export default Loader;
