@@ -1,17 +1,31 @@
+import { Component } from 'react';
 import { createPortal } from 'react-dom';
 import s from './Modal.module.css';
 
 const modalRoot = document.querySelector('#modal-root');
 
-function Modal({ imgUrl, tag }) {
-  return createPortal(
-    <div className={s.backdrop}>
-      <div className={s.modal}>
-        <img src={imgUrl} alt={tag} width="1280px" />
-      </div>
-    </div>,
-    modalRoot
-  );
+class Modal extends Component {
+  componentDidMount() {
+    window.addEventListener('keydown', this.handleKeyDown);
+  }
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this.handleKeyDown);
+  }
+
+  handleKeyDown = e => {
+    if (e.code === 'Escape') {
+      this.props.onClose();
+    }
+  };
+
+  render() {
+    return createPortal(
+      <div className={s.backdrop}>
+        <div className={s.modal}>{this.props.children}</div>
+      </div>,
+      modalRoot
+    );
+  }
 }
 
 export default Modal;

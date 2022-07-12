@@ -23,8 +23,12 @@ class ImageGalleryItem extends Component {
 
     return (
       <li className={s.item} onClick={this.toggleModal}>
-        <img src={webformatURL} alt={tag} width="300px" height="150px" />
-        {isModalOpen && <Modal imgUrl={largeImageURL} tag={tag} />}
+        <img src={webformatURL} alt={tag} width="300px" height="200px" />
+        {isModalOpen && (
+          <Modal onClose={this.toggleModal}>
+            <img src={largeImageURL} alt={tag} width="1280px" />
+          </Modal>
+        )}
       </li>
     );
   }

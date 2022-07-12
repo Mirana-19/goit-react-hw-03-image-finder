@@ -1,4 +1,17 @@
 .button {
   display: block;
-  margin: 0 auto;
+  margin: 10px auto;
+  height: 25px;
+  width: 100px;
+
+  background-color: #4267b2;
+  color: aliceblue;
+
+  border: 0;
+  border-radius: 5px;
+}
+
+.button:hover,
+.button:focus {
+  background-color: #20479b;
 }

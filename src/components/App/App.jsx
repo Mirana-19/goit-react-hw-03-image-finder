@@ -22,12 +22,6 @@ export class App extends Component {
 
     if (prevState.page !== page || prevState.searchQuery !== searchQuery) {
       try {
-        if (searchQuery === '') {
-          return toast.info('Please type your search query');
-        }
-
-        console.log(prevState, this.state);
-
         this.setState({ status: 'pending' });
 
         const response = await api(searchQuery, page);
@@ -54,6 +48,10 @@ export class App extends Component {
 
   handleSearch = ({ query }) => {
     const normalizedQuery = query.toLowerCase().trim();
+
+    if (normalizedQuery === '') {
+      return toast.info('Please type your search query');
+    }
 
     if (normalizedQuery === this.state.searchQuery) {
       return toast.error('Try "load more" button');
